@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.SysUserMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.SysUser">
+    <!--@mbg.generated-->
+    <!--@Table sys_user-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="no" jdbcType="VARCHAR" property="no" />
+    <result column="department" jdbcType="INTEGER" property="department" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="role" jdbcType="INTEGER" property="role" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
+    <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp" />
+    <result column="creator" jdbcType="INTEGER" property="creator" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="INTEGER" property="modifier" />
+    <result column="modified_time" jdbcType="TIMESTAMP" property="modifiedTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, username, `no`, department, `password`, `role`, `status`, last_login_time, last_login_ip, 
+    creator, create_time, modifier, modified_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from sys_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.demo.model.SysUser" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into sys_user (username, `no`, department, 
+      `password`, `role`, `status`, 
+      last_login_time, last_login_ip, creator, 
+      create_time, modifier, modified_time
+      )
+    values (#{username,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, #{department,jdbcType=INTEGER}, 
+      #{password,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{lastLoginTime,jdbcType=TIMESTAMP}, #{lastLoginIp,jdbcType=VARCHAR}, #{creator,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=INTEGER}, #{modifiedTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.demo.model.SysUser" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        username,
+      </if>
+      <if test="no != null">
+        `no`,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+      <if test="role != null">
+        `role`,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time,
+      </if>
+      <if test="lastLoginIp != null">
+        last_login_ip,
+      </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifiedTime != null">
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null">
+        #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=INTEGER},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        #{role,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="lastLoginTime != null">
+        #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginIp != null">
+        #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedTime != null">
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.SysUser">
+    <!--@mbg.generated-->
+    update sys_user
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="no != null">
+        `no` = #{no,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        department = #{department,jdbcType=INTEGER},
+      </if>
+      <if test="password != null">
+        `password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null">
+        `role` = #{role,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="lastLoginTime != null">
+        last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLoginIp != null">
+        last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        creator = #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedTime != null">
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.SysUser">
+    <!--@mbg.generated-->
+    update sys_user
+    set username = #{username,jdbcType=VARCHAR},
+      `no` = #{no,jdbcType=VARCHAR},
+      department = #{department,jdbcType=INTEGER},
+      `password` = #{password,jdbcType=VARCHAR},
+      `role` = #{role,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=INTEGER},
+      last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+      last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
+      creator = #{creator,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=INTEGER},
+      modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByNo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_user
+    where `no` = #{no,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_user
+    limit #{pageNum}, #{pageSize}
+  </select>
+</mapper>
