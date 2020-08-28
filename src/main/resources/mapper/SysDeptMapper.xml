@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.mapper.DepartmentsMapper">
-  <resultMap id="BaseResultMap" type="com.example.demo.model.Departments">
+<mapper namespace="com.example.demo.mapper.SysDeptMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.SysDept">
     <!--@mbg.generated-->
     <!--@Table departments-->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="department_name" jdbcType="VARCHAR" property="departmentName" />
+    <result column="parent_id" jdbcType="INTEGER" property="parentId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="status" jdbcType="INTEGER" property="status" />
     <result column="creator" jdbcType="INTEGER" property="creator" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="modifier" jdbcType="INTEGER" property="modifier" />
@@ -13,7 +17,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, department_name, creator, create_time, modifier, modified_time
+    id, name, creator, create_time, modifier, modified_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -27,24 +31,37 @@
     delete from departments
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.model.Departments">
+  <insert id="insert" parameterType="com.example.demo.model.SysDept">
     <!--@mbg.generated-->
-    insert into departments (id, department_name, creator, 
+    insert into departments (id, parent_id, name, type, sort, status, creator,
       create_time, modifier, modified_time
       )
-    values (#{id,jdbcType=INTEGER}, #{departmentName,jdbcType=VARCHAR}, #{creator,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=INTEGER}, #{modifiedTime,jdbcType=TIMESTAMP}
+    values (#{id,jdbcType=INTEGER}, #{parentId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER},
+      #{sort,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{creator,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+      #{modifier,jdbcType=INTEGER}, #{modifiedTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.example.demo.model.Departments">
+  <insert id="insertSelective" parameterType="com.example.demo.model.SysDept">
     <!--@mbg.generated-->
     insert into departments
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="departmentName != null">
-        department_name,
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="status != null">
+        status,
       </if>
       <if test="creator != null">
         creator,
@@ -63,8 +80,20 @@
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="departmentName != null">
-        #{departmentName,jdbcType=VARCHAR},
+      <if test="parentId != null">
+        #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
       </if>
       <if test="creator != null">
         #{creator,jdbcType=INTEGER},
@@ -80,12 +109,24 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.Departments">
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.SysDept">
     <!--@mbg.generated-->
     update departments
     <set>
-      <if test="departmentName != null">
-        department_name = #{departmentName,jdbcType=VARCHAR},
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
       </if>
       <if test="creator != null">
         creator = #{creator,jdbcType=INTEGER},
@@ -102,14 +143,22 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.Departments">
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.SysDept">
     <!--@mbg.generated-->
     update departments
-    set department_name = #{departmentName,jdbcType=VARCHAR},
+    set parent_id = #{parentId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
       creator = #{creator,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modifier = #{modifier,jdbcType=INTEGER},
       modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectAll" >
+    select *
+    from departments
+  </select>
 </mapper>

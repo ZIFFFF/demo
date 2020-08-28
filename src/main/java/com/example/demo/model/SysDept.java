@@ -4,10 +4,27 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
-public class Departments {
+public class SysDept {
     private Integer id;
 
-    private String departmentName;
+    /**
+     * 上级部门ID，一级部门为0
+     */
+    private Integer parentId;
+
+    private String name;
+
+    /**
+     * 部门类型，0：公司； 1：部门； 2：科室/小组
+     */
+    private Integer type;
+
+    /**
+     * 排序值，越小越靠前
+     */
+    private Integer sort;
+
+    private Integer status;
 
     private Integer creator;
 
@@ -27,12 +44,44 @@ public class Departments {
         this.id = id;
     }
 
-    public String getDepartmentName() {
-        return departmentName;
+    public Integer getParentId() {
+        return parentId;
     }
 
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Integer getCreator() {
