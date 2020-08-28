@@ -9,7 +9,8 @@ package com.example.demo.common;
 
 public enum ResultCode {
     SUCCESS(200, "SUCCESS"),
-    ERROR(400, "ERROR");
+    ERROR(400, "ERROR"),
+    INTERNET_ERROR(500, "网络错误!");
 
     private final int code;
     private final String desc;

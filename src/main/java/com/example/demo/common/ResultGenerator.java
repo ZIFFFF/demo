@@ -56,12 +56,20 @@ public class ResultGenerator<T> implements Serializable {
         return new ResultGenerator<T>(ResultCode.SUCCESS.getCode(), message, data);
     }
 
+    public static <T> ResultGenerator<T> createBySuccess(int code, String message){
+        return new ResultGenerator<T>(code, message);
+    }
+
     public static <T> ResultGenerator<T> createBySuccess(int code, T data) {
         return new ResultGenerator<T>(code, data);
     }
 
     public static <T> ResultGenerator<T> createBySuccess(T data) {
         return new ResultGenerator<T>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getDesc(), data);
+    }
+
+    public static <T> ResultGenerator<T> createByError(int code, String message) {
+        return new ResultGenerator<T>(code, message);
     }
 
 }
