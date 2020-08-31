@@ -1,8 +1,11 @@
 package com.example.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import java.util.Date;
+
+/**
+ * @author ZZF
+ * @date 2020/8/31
+ */
 
 public class SysDept {
     private Integer id;
@@ -28,12 +31,10 @@ public class SysDept {
 
     private Integer creator;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date createTime;
 
     private Integer modifier;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date modifiedTime;
 
     public Integer getId() {

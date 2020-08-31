@@ -2,6 +2,11 @@ package com.example.demo.model;
 
 import java.util.Date;
 
+/**
+ * @author ZZF
+ * @date 2020/8/31
+ */
+
 public class SysUser {
     private Integer id;
 
@@ -17,6 +22,9 @@ public class SysUser {
 
     private String email;
 
+    /**
+     * 职务名称
+     */
     private String jobTitle;
 
     private Integer status;

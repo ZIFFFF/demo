@@ -9,7 +9,12 @@
     <result column="no" jdbcType="VARCHAR" property="no" />
     <result column="department" jdbcType="INTEGER" property="department" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="job_title" jdbcType="VARCHAR" property="jobTitle" />
     <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="del_flag" jdbcType="INTEGER" property="delFlag" />
     <result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
     <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp" />
     <result column="creator" jdbcType="INTEGER" property="creator" />
@@ -19,8 +24,8 @@
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    id, username, `no`, department, `password`, `role`, `status`, last_login_time, last_login_ip, 
-    creator, create_time, modifier, modified_time
+    id, username, `no`, department, `password`, tel, email, job_title, `status`, sort, 
+    del_flag, last_login_time, last_login_ip, creator, create_time, modifier, modified_time
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -37,15 +42,17 @@
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.demo.model.SysUser" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into sys_user (username, `no`, department, 
-      `password`, `role`, `status`, 
-      last_login_time, last_login_ip, creator, 
-      create_time, modifier, modified_time
-      )
+      `password`, tel, email, 
+      job_title, `status`, sort, 
+      del_flag, last_login_time, last_login_ip, 
+      creator, create_time, modifier, 
+      modified_time)
     values (#{username,jdbcType=VARCHAR}, #{no,jdbcType=VARCHAR}, #{department,jdbcType=INTEGER}, 
-      #{password,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
-      #{lastLoginTime,jdbcType=TIMESTAMP}, #{lastLoginIp,jdbcType=VARCHAR}, #{creator,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=INTEGER}, #{modifiedTime,jdbcType=TIMESTAMP}
-      )
+      #{password,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{jobTitle,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, 
+      #{delFlag,jdbcType=INTEGER}, #{lastLoginTime,jdbcType=TIMESTAMP}, #{lastLoginIp,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=INTEGER}, 
+      #{modifiedTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.demo.model.SysUser" useGeneratedKeys="true">
     <!--@mbg.generated-->
@@ -63,11 +70,23 @@
       <if test="password != null">
         `password`,
       </if>
-      <if test="role != null">
-        `role`,
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="jobTitle != null">
+        job_title,
       </if>
       <if test="status != null">
         `status`,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
       </if>
       <if test="lastLoginTime != null">
         last_login_time,
@@ -101,11 +120,23 @@
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="role != null">
-        #{role,jdbcType=INTEGER},
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="jobTitle != null">
+        #{jobTitle,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=INTEGER},
       </if>
       <if test="lastLoginTime != null">
         #{lastLoginTime,jdbcType=TIMESTAMP},
@@ -143,11 +174,23 @@
       <if test="password != null">
         `password` = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="role != null">
-        `role` = #{role,jdbcType=INTEGER},
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="jobTitle != null">
+        job_title = #{jobTitle,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=INTEGER},
       </if>
       <if test="lastLoginTime != null">
         last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
@@ -177,8 +220,12 @@
       `no` = #{no,jdbcType=VARCHAR},
       department = #{department,jdbcType=INTEGER},
       `password` = #{password,jdbcType=VARCHAR},
-      `role` = #{role,jdbcType=INTEGER},
+      tel = #{tel,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      job_title = #{jobTitle,jdbcType=VARCHAR},
       `status` = #{status,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
+      del_flag = #{delFlag,jdbcType=INTEGER},
       last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
       last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
       creator = #{creator,jdbcType=INTEGER},
@@ -193,7 +240,7 @@
     from sys_user
     where `no` = #{no,jdbcType=VARCHAR}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.example.demo.model.SysUser">
+  <select id="selectAll" parameterType="com.example.demo.model.SysUser" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from sys_user
