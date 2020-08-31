@@ -46,7 +46,7 @@
                 <li class="layui-nav-item" id="userInfo">
                     <a href="javascript:;">
                         <img src="/images/face.jpg" class="layui-nav-img userAvatar" width="35" height="35">
-                        <cite class="adminName" th:text="${user.username}"></cite>&nbsp;</a>
+                        <cite class="adminName" th:text="${user.getUsername()}"></cite>&nbsp;</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" data-url="page/user/userInfo.html"><i class="layui-icon">&#xe66f;</i><cite>个人资料</cite></a></dd>
                         <dd><a href="javascript:;" data-url="page/user/changePwd.html"><i class="layui-icon ">&#xe770;</i><cite>修改密码</cite></a></dd>
@@ -69,6 +69,12 @@
                             <cite>首页</cite>
                         </a>
                     </li>
+                    <li class="layui-nav-item layui-this">
+                        <a href="javascript:;" data-url="/main">
+                            <i class="layui-icon" data-icon=""></i>
+                            <cite>首页</cite>
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -78,7 +84,7 @@
                 <div class="main_hd with_extra">
                     <h2>首页</h2>
                 </div>
-                <iframe src="main" frameborder="0" scrolling="no" id="iframe"></iframe>
+                <iframe src="/main" frameborder="0" scrolling="no" id="iframe"></iframe>
             </div>
         </div>
     </div>

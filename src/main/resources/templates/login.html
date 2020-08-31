@@ -106,8 +106,8 @@
                         password: $("#password").val()
                     },
                     success: function (result) {
-                        if (result.code == 1) {
-                            layer.msg(result.message, {
+                        if (result.status == 200) {
+                            layer.msg("登录成功！", {
                                 icon: 6,
                                 shade: 0.8,
                                 time: false
