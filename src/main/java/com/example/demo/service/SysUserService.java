@@ -1,10 +1,15 @@
 package com.example.demo.service;
 
+import com.example.demo.common.ResultCode;
+import com.example.demo.common.ResultGenerator;
 import com.example.demo.mapper.SysUserMapper;
 import com.example.demo.model.SysUser;
 import com.example.demo.util.IpUtil;
 import com.example.demo.vo.ResultVO;
+import com.github.pagehelper.IPage;
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -71,7 +76,7 @@ public class SysUserService {
 //        return result;
 //    }
 
-    public ResultVO checkLoginByShiro(String no, String password, HttpServletRequest request) {
+    public ResultGenerator checkLoginByShiro(String no, String password, HttpServletRequest request) {
         /**
          * 使用shiro编写登录认证
          */
@@ -90,15 +95,18 @@ public class SysUserService {
             user.setLastLoginIp(ip);
             int insert = sysUserMapper.updateByPrimaryKeySelective(user);
             if (insert == 0) {
-                resultVO.setCode(0);
-                resultVO.setMessage("网络出错，请联系管理员");
+//                resultVO.setCode(0);
+//                resultVO.setMessage("网络出错，请联系管理员");
+                return ResultGenerator.createByError(ResultCode.INTERNET_ERROR.getCode(), ResultCode.INTERNET_ERROR.getDesc());
             } else {
-                resultVO.setCode(1);
-                resultVO.setMessage("登录成功");
+//                resultVO.setCode(1);
+//                resultVO.setMessage("登录成功");
+                return ResultGenerator.createBySuccess();
             }
         } catch (Exception e) {
-            resultVO.setCode(0);
-            resultVO.setMessage(e.getMessage());
+//            resultVO.setCode(0);
+//            resultVO.setMessage(e.getMessage());
+            return ResultGenerator.createByError(ResultCode.ERROR.getCode(), e.getMessage());
         }
 //        try {
 //            subject.login(token);
@@ -111,7 +119,7 @@ public class SysUserService {
 //            resultVO.setCode(0);
 //            resultVO.setMessage("密码不正确");
 //        }
-        return resultVO;
+//        return resultVO;
     }
 
     public ResultVO userRegister(String no, String password) {
@@ -157,8 +165,11 @@ public class SysUserService {
         return resultVO;
     }
 
-    public Page<SysUser> userList(Integer pageNum, Integer pageSize) {
-        return sysUserMapper.selectAll(pageNum, pageSize);
+    public ResultGenerator<PageInfo> userList(Integer pageNum, Integer pageSize, SysUser sysUser) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<SysUser> list = sysUserMapper.selectAll(sysUser);
+        PageInfo<SysUser> pageInfo = new PageInfo<>(list);
+        return ResultGenerator.createBySuccess(pageInfo);
     }
 
 }

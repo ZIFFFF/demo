@@ -13,9 +13,17 @@ public class SysUser {
 
     private String password;
 
-    private Integer role;
+    private String tel;
+
+    private String email;
+
+    private String jobTitle;
 
     private Integer status;
+
+    private Integer sort;
+
+    private Integer delFlag;
 
     private Date lastLoginTime;
 
@@ -69,12 +77,28 @@ public class SysUser {
         this.password = password;
     }
 
-    public Integer getRole() {
-        return role;
+    public String getTel() {
+        return tel;
     }
 
-    public void setRole(Integer role) {
-        this.role = role;
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
     }
 
     public Integer getStatus() {
@@ -83,6 +107,22 @@ public class SysUser {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    public Integer getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(Integer delFlag) {
+        this.delFlag = delFlag;
     }
 
     public Date getLastLoginTime() {

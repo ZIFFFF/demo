@@ -29,7 +29,10 @@ public class PageController {
     @GetMapping("/main")
     public String MainPage() { return "main"; }
 
-    @GetMapping("/user/list")
+    @GetMapping("/department/index")
+    public String DepartmentIndexPage() { return "department/index"; }
+
+    @GetMapping("/user/index")
     public String UserIndexPage() { return "user/index"; }
 
     @GetMapping("/user/add")
