@@ -16,7 +16,7 @@ public class SysDeptController {
     @Autowired
     private SysDeptService sysDeptService;
 
-    @RequestMapping("/depart/list")
+    @RequestMapping("/dept/list")
     @ResponseBody
     public Object getDepartmentsList() {
         return sysDeptService.DepartmentList();

@@ -160,6 +160,6 @@
   </update>
   <select id="selectAll" resultType="com.example.demo.model.SysDept">
     select *
-    from departments
+    from sys_dept
   </select>
 </mapper>

@@ -15,14 +15,6 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
         limits: [10, 15, 20, 25],
         // limit: 20,
         id: "userListTable",
-        parseData: function (res) {
-          return {
-              "code": 0,
-              "msg": res.message,
-              "count": res.data.total,
-              "data": res.data.list
-          }
-        },
         cols: [
             [
                 {
