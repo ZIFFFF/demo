@@ -38,7 +38,7 @@ public class UserRealm extends AuthorizingRealm {
             //工号不存在
             throw new AccountException("账号或密码不正确");
         } else if (user.getStatus() == 0) {
-            throw new DisabledAccountException("该账号禁止登录");
+            throw new AccountException("该账号禁止登录");
         }
         return new SimpleAuthenticationInfo(user, user.getPassword(), user.getUsername());
     }

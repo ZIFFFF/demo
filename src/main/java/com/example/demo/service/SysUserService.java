@@ -6,6 +6,7 @@ import com.example.demo.mapper.SysUserMapper;
 import com.example.demo.model.SysUser;
 import com.example.demo.util.IpUtil;
 import com.example.demo.vo.ResultVO;
+import com.example.demo.vo.SysUserVo;
 import com.github.pagehelper.IPage;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -80,7 +81,7 @@ public class SysUserService {
         /**
          * 使用shiro编写登录认证
          */
-        ResultVO resultVO = new ResultVO();
+//        ResultVO resultVO = new ResultVO();
         SysUser user = sysUserMapper.selectByNo(no);
         //获取当前登录用户IP地址
         String ip = IpUtil.getIpAddr(request);
@@ -165,11 +166,30 @@ public class SysUserService {
         return resultVO;
     }
 
-    public ResultGenerator<PageInfo> userList(Integer pageNum, Integer pageSize, SysUser sysUser) {
-        PageHelper.startPage(pageNum, pageSize);
-        List<SysUser> list = sysUserMapper.selectAll(sysUser);
-        PageInfo<SysUser> pageInfo = new PageInfo<>(list);
-        return ResultGenerator.createBySuccess(pageInfo);
+    public List<SysUserVo> userList(SysUserVo sysUser) {
+        return sysUserMapper.selectAll(sysUser);
+    }
+
+    public ResultGenerator userAdd(SysUser sysUser) {
+        SysUser current = (SysUser) SecurityUtils.getSubject().getPrincipal();
+        sysUser.setPassword("123456");
+        sysUser.setStatus(1);
+        sysUser.setDelFlag(0);
+        sysUser.setCreator(current.getId());
+        sysUser.setCreateTime(new Date());
+        Integer add = sysUserMapper.insertSelective(sysUser);
+        if (add != 0) {
+            return ResultGenerator.createBySuccess();
+        }
+        return ResultGenerator.createByError(ResultCode.ERROR.getCode(), "添加失败！");
+    }
+
+    public ResultGenerator userDel(String[] no) {
+        Integer del = sysUserMapper.delectByNo(no);
+        if (del != 0) {
+            return ResultGenerator.createBySuccess();
+        }
+        return ResultGenerator.createByError(ResultCode.ERROR.getCode(), "删除失败！");
     }
 
 }

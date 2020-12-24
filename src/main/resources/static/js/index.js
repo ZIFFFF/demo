@@ -32,7 +32,9 @@ layui.use(['bodyTab', 'form', 'element', 'layer', 'jquery'], function() {
 	$("body").on("click", ".layui-nav .layui-nav-item a:not('.mobileTopLevelMenus .layui-nav-item a')", function() {
 		var url = $(this).data('url');
 		var text = $(this).find('cite').text()
-		if (url) {
+		if (url == "/") {
+			location.reload();
+		} else {
 			$('#iframe').attr('src', url);
 			$('.main_hd h2').text(text);
 			$('.layui-layout-admin').removeClass('showMenu');

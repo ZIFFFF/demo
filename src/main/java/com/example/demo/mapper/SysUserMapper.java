@@ -1,6 +1,7 @@
 package com.example.demo.mapper;
 
 import com.example.demo.model.SysUser;
+import com.example.demo.vo.SysUserVo;
 import org.apache.ibatis.annotations.Mapper;import org.apache.ibatis.annotations.Param;import java.util.List;
 
 /**
@@ -65,6 +66,15 @@ public interface SysUserMapper {
      *
      * @return 用户数据分页
      * @Param sysUser 查找用户
+     * @param sysUser
      */
-    List<SysUser> selectAll(@Param("sysUser") SysUser sysUser);
+    List<SysUserVo> selectAll(@Param("sysUser") SysUserVo sysUser);
+
+    /**
+     * 逻辑删除用户
+     *
+     * @return
+     * @Param 职工号列表
+     */
+    int delectByNo(@Param("no") String[] no);
 }

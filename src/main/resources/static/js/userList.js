@@ -18,18 +18,19 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
         cols: [
             [
                 {
-                    type: "checkbox",
-                    fixed: "left"
+                    type: "checkbox"
                 },
                 {
                     field: 'username',
                     title: '用户名',
-                    align: "center"
+                    align: "center",
+                    width: 80
                 },
                 {
                     field: 'no',
                     title: '工号',
-                    align: 'center'
+                    align: 'center',
+                    width: 80
                 },
                 {
                     field: 'department',
@@ -43,26 +44,14 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
                     align: 'center',
                     width: 100,
                     templet: function (d) {
-                        return d.userStatus == "0" ? "正常使用" : "限制使用";
+                        return d.status == 1 ? "正常使用" : "限制使用";
                     }
                 },
                 {
-                    field: 'role',
-                    title: '身份',
+                    field: 'jobTitle',
+                    title: '职务名称',
                     align: 'center',
-                    templet: function (d) {
-                        if (d.userGrade == "0") {
-                            return "系统管理员";
-                        } else if (d.userGrade == "1") {
-                            return "主任";
-                        } else if (d.userGrade == "2") {
-                            return "副主任";
-                        } else if (d.userGrade == "3") {
-                            return "主管";
-                        } else if (d.userGrade == "4") {
-                            return "普通员工";
-                        }
-                    }
+                    width: 100
                 },
                 {
                     field: 'lastLoginTime',
@@ -76,9 +65,7 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
                 },
                 {
                     title: '操作',
-                    minWidth: 200,
                     templet: '#userListBar',
-                    fixed: "right",
                     align: "center"
                 }
             ]
@@ -109,16 +96,18 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
             area: ['90%', '90%'],
             fixed: false, //不固定
             maxmin: true,
-            content: "userAdd.html",
+            content: "/user/add",
             success: function (layero, index) {
                 var body = layui.layer.getChildFrame('body', index);
                 if (edit) {
-                    body.find(".userName").val(edit.userName); //登录名
-                    body.find(".userEmail").val(edit.userEmail); //邮箱
-                    body.find(".userSex input[value=" + edit.userSex + "]").prop("checked", "checked"); //性别
-                    body.find(".userGrade").val(edit.userGrade); //会员等级
-                    body.find(".userStatus").val(edit.userStatus); //用户状态
-                    body.find(".userDesc").text(edit.userDesc); //用户简介
+                    body.find(".userName").val(edit.username); //登录名
+                    body.find(".no").val(edit.no);
+                    body.find(".userEmail").val(edit.email); //邮箱
+                    body.find(".userTel").val(edit.tel); //会员等级
+                    body.find(".userdept input[text=" + edit.department + "]").prop("checked", "checked"); //性别
+                    body.find(".userStatus input[value=" + edit.status + "]").prop("checked", "checked"); //用户状态
+                    body.find(".jobTitle").val(edit.jobTitle);
+                    body.find(".sort").val(edit.sort);
                     form.render();
                 }
                 setTimeout(function () {
@@ -142,21 +131,21 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
     $(".delAll_btn").click(function () {
         var checkStatus = table.checkStatus('userListTable'),
             data = checkStatus.data,
-            newsId = [];
+            nos = [];
         if (data.length > 0) {
             for (var i in data) {
-                newsId.push(data[i].newsId);
+                nos.push(data[i].no);
             }
             layer.confirm('确定删除选中的用户？', {
                 icon: 3,
                 title: '提示信息'
             }, function (index) {
-                // $.get("删除文章接口",{
-                //     newsId : newsId  //将需要删除的newsId作为参数传入
-                // },function(data){
-                tableIns.reload();
-                layer.close(index);
-                // })
+                $.post("/user/del", {
+                    no: nos
+                }, function (data) {
+                    tableIns.reload();
+                    layer.close(index);
+                })
             })
         } else {
             layer.msg("请选择需要删除的用户");
@@ -179,6 +168,7 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
                     btnText = "已启用";
             }
             layer.confirm(usableText, {
+
                 icon: 3,
                 title: '系统提示',
                 cancel: function (index) {
@@ -194,13 +184,19 @@ layui.use(['form', 'layer', 'table', 'laytpl'], function () {
             layer.confirm('确定删除此用户？', {
                 icon: 3,
                 title: '提示信息'
+
             }, function (index) {
-                // $.get("删除文章接口",{
-                //     newsId : data.newsId  //将需要删除的newsId作为参数传入
-                // },function(data){
-                tableIns.reload();
-                layer.close(index);
-                // })
+                $.post("/user/del", {
+                    no: data.no  //将需要删除的newsId作为参数传入
+                }, function (data) {
+                    if (data.status == 400) {
+                        layer.msg(data.message, {
+                            icon: 5
+                        });
+                    }
+                    tableIns.reload();
+                    layer.close(index);
+                })
             });
         }
     });

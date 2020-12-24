@@ -240,13 +240,20 @@
     from sys_user
     where `no` = #{no,jdbcType=VARCHAR}
   </select>
-  <select id="selectAll" parameterType="com.example.demo.model.SysUser" resultMap="BaseResultMap">
+  <select id="selectAll" parameterType="com.example.demo.vo.SysUserVo" resultType="com.example.demo.vo.SysUserVo">
     select
-    <include refid="Base_Column_List" />
-    from sys_user
-    where 1=1
+        su.id, su.username, su.no, sd.name as department, su.password, su.tel, su.email, su.job_title as jobTitle,
+        su.status, su.sort, su.del_flag as delFlag, su.last_login_time as lastLoginTime, su.last_login_ip as lastLoginIp,
+        su.creator, su.create_time as createTime, su.modifier, su.modified_time as modifiedTime
+    from sys_user su left join sys_dept sd on su.department = sd.id
+    where 1=1 and su.del_flag != 1
     <if test="sysUser.id != null">
       id = #{sysUser.id,jdbcType=INTEGER}
     </if>
   </select>
+  <update id="delectByNo">
+    update sys_user
+    set del_flag = 1
+    where `no` in (#{no, jdbcType=ARRAY})
+  </update>
 </mapper>

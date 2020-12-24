@@ -21,19 +21,25 @@
       ]
     },
     {
-      "title": "用户中心",
-      "icon": "&#xe770;",
+      "title": "软件中心",
+      "icon": "&#xe67f;",
       "href": "",
       "spread": true,
       "children": [
         {
-          "title": "用户中心",
+          "title": "领导小组",
           "icon": "",
-          "href": "/user/index",
+          "href": "/software/softwareLeader",
           "spread": false
         },
         {
-          "title": "会员等级",
+          "title": "软件台账",
+          "icon": "",
+          "href": "page/user/userGrade.html",
+          "spread": false
+        },
+        {
+          "title": "软件使用",
           "icon": "",
           "href": "page/user/userGrade.html",
           "spread": false

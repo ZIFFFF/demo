@@ -16,32 +16,32 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class PageController {
 
     @GetMapping("/")            //请求页面的接口链接
-    public String LoginPage() { //跳转页面，链接本身是一段字符串，所以使用‘String’类型放回结果
+    public String loginPage() { //跳转页面，链接本身是一段字符串，所以使用‘String’类型放回结果
         return "login";         //使用Thymeleaf，会自动定位到页面，如果没有对应的页面会显示‘Cannot resolve MVC View 'login'’
     }
 
     @GetMapping("/index")
-    public String IndexPage(Model model){
+    public String indexPage(Model model){
         model.addAttribute("user", (SysUser) SecurityUtils.getSubject().getPrincipal());
         return "index";
     }
 
     @GetMapping("/main")
-    public String MainPage() { return "main"; }
+    public String mainPage() { return "main"; }
 
     @GetMapping("/department/index")
-    public String DepartmentIndexPage() { return "department/index"; }
+    public String departmentIndexPage() { return "department/index"; }
 
     @GetMapping("/user/index")
-    public String UserIndexPage() { return "user/index"; }
+    public String userIndexPage() { return "user/index"; }
 
     @GetMapping("/user/add")
-    public String UserAddPage() {
+    public String userAddPage() {
         return "user/add";
     }
 
     @GetMapping("/user/update")
-    public String UserUpdatePage() {
+    public String userUpdatePage() {
         return "detail";
     }
 
@@ -50,4 +50,7 @@ public class PageController {
     public String onAuthPage() {
         return "您没有权限访问";
     }
+
+    @GetMapping("/software/softwareLeader")
+    public String softwareLeaderPage() { return "software/software_leader"; }
 }
