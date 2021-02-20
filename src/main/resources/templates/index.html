@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ID：<input id="userId" type="text" placeholder="请输入用户ID"/>
+<button id="send">查询</button>
+用户名：<input id="resText"/>
+</body>
+</html>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+    $(function(){
+        $('#send').click(function () {
+            $.ajax({
+                //fdsfsfd
+                type: "post",
+                url: "/sys_user/get",
+                data: {
+                    id: $("#userId").val()
+                },
+                dataType: "json",
+                success: function (result) {
+                    if (result == null) {
+                        alert('查无此用户！')
+                    } else {
+                        $('#resText').empty();
+                        $('#resText').val(result.loginName);
+                    }
+                }
+            });
+        });
+    })
+</script>
